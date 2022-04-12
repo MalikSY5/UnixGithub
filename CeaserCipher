@@ -1,0 +1,65 @@
+# An encoder/decoder for our spies to secretly send messages.
+
+encryption_option = input("Would you like to Encode or Decode? ") 
+
+# should_encode will be true if the user 
+should_encode = "encode" in encryption_option.lower()
+should_decode = "decode" in encryption_option.lower()
+
+# Ask the user for their message and cipher number.
+
+if should_encode:
+    encode_mess = ""
+    cipher_num = int(float(input('What number:')))
+    message = input('What is your message:')
+    message = list(message)
+    for i in message:
+        new_letter = ord(i)
+        if new_letter == 32:
+            encode_mess += chr(new_letter)
+            pass
+        elif new_letter == range(33,64):
+            encode_mess += chr(new_letter)
+            pass
+        elif new_letter + cipher_num > 90:
+            ciph_range = 0
+            while ciph_range != cipher_num:
+                new_letter += 1
+                ciph_range += 1
+                if new_letter == 91:
+                    new_letter = 65
+            encode_mess += chr(new_letter)
+        else:
+            new_letter += cipher_num
+            encode_mess += chr(new_letter)
+    print(str(encode_mess))
+elif should_decode:
+    # Your code here for extra credit
+    decode_mess = ''
+    cipher_num = int(float(input('Enter number:')))
+    message = input('Enter Encrypted message:')
+    message = list(message)
+    for i in message:
+        new_letter = ord(i)
+        if new_letter == 32:
+            decode_mess += chr(new_letter)
+            pass
+        elif new_letter == range(33,64):
+            decode_mess += chr(new_letter)
+            pass
+        elif new_letter - cipher_num < 65:
+            ciph_range = 0
+            while ciph_range != cipher_num:
+                new_letter = new_letter -  1
+                ciph_range += 1
+                if new_letter == 64:
+                    new_letter = 90
+            decode_mess += chr(new_letter)
+        else:
+            new_letter = new_letter - cipher_num
+            decode_mess += chr(new_letter)
+    print(str(decode_mess))
+else:
+    # Print a nice notice that we only support encrypt/decrypt
+    print('Please enter encrypt or decrypt')
+    pass
